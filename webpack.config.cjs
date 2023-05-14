@@ -18,6 +18,11 @@ module.exports = {
 	mode: "production",
 	entry: entries,
 	
+	output: {
+		filename: "[name]/main.js",
+		path: cd + "/dist",
+	},
+	
 	module: {
 		rules: [
 			{
@@ -31,9 +36,9 @@ module.exports = {
 					{
 						loader: "file-loader",
 						options: {
-							outputPath: "css/",
-							name: "[path][name].min.css",
-							context: "src/css/",
+						//	outputPath: "",
+							name: "[name]/[name].css",
+							context: "sparks/*/",
 						}
 					},
 					"sass-loader"
@@ -54,11 +59,6 @@ module.exports = {
 
 	resolve: {
 		extensions: [".scss", ".tsx", ".ts", ".js"],
-	},
-	
-	output: {
-		filename: "js/[name].js",
-		path: cd + "/dist",
 	},
 
 	plugins: [
