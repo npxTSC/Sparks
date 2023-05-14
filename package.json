@@ -11,7 +11,10 @@
   "keywords": [],
   "author": "dexie",
   "license": "GPL-3.0-or-later",
-  "dependencies": {},
+  "dependencies": {
+    "libdx": "^1.9.1",
+    "mini-css-extract-plugin": "^2.7.5"
+  },
   "devDependencies": {
     "@types/bootstrap": "^5.1.13",
     "@types/node": "^18.16.5",
@@ -21,6 +24,7 @@
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.1",
     "file-loader": "^6.2.0",
+    "glob": "^10.2.3",
     "sass": "^1.53.0",
     "sass-loader": "^13.0.2",
     "source-map-loader": "^4.0.0",

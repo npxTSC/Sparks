@@ -3,7 +3,7 @@
 import {UIComponent}	from "./dtools";
 import {ctx, octx}		from "./main";
 
-const DEFAULT_SAMPLE_SRC = "/public/sparks/sparkwave/debug/ckey.wav";
+const DEFAULT_SAMPLE_SRC = "debug/ckey.wav";
 
 export class Sample {
 	public buffer:	AudioBuffer;

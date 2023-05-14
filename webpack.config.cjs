@@ -1,66 +1,55 @@
-"use strict";
-const path					= require("path");
-const glob					= require("glob");
-const CleanTerminalPlugin	= require("clean-terminal-webpack-plugin");
-const CopyPlugin			= require("copy-webpack-plugin");
+const path = require("path");
+const glob = require("glob");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-const cd = __dirname;
-const entries = glob.sync()
+const entries = {};
+
+// Find all the directories under the sparks directory
+const dirs = glob.sync("sparks/*/");
+
+dirs.forEach((dir) => {
+	// Get the directory name from the path
+    const dirName = path.basename(path.dirname(dir));
+    // Define the entry path for the current directory
+    const entryPath = `./${dir}/main.ts`;
+    // Define the output path for the current directory
+    const outputPath = `./dist/${dirName}/`;
+
+    entries[dirName] = {
+        entry: entryPath,
+        output: {
+            filename: "main.js",
+            path: path.resolve(__dirname, outputPath)
+        }
+    };
+});
+
 
 module.exports = {
-	mode: "production",
-	entry: {
-		"main":				cd + "/src/js/main.ts",
-	},
-	
-	module: {
-		rules: [
-			{
-				test: /\.js$/,
-				enforce: "pre",
-				use: ["source-map-loader"],
-			},
-			{
-				test: /\.s[ac]ss$/i,
-				use: [
-					{
-						loader: "file-loader",
-						options: {
-							outputPath: "css/",
-							name: "[path][name].min.css",
-							context: "src/css/",
-						}
-					},
-					"sass-loader"
-				]
-			},
-			{
-				test: /\.tsx?$/,
-				use: [{
-					loader: "ts-loader",
-					options: {
-						configFile: "tsconfig.webpack.json"
-					}
-				}],
-				exclude: /node_modules/,
-			},
-		],
-	},
+    mode: "production",
+    entry: entries.entry,
+    output: entries.output,
 
-	resolve: {
-		extensions: [".scss", ".tsx", ".ts", ".js"],
-	},
-	
-	output: {
-		filename: "js/[name].js",
-		path: cd + "/dist",
-	},
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/,
+                use: "ts-loader",
+                exclude: /node_modules/
+            }, {
+                test: /\.scss$/,
+                use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
+            }
+        ]
+    },
 
-	plugins: [
-		new CleanTerminalPlugin(),
-	],			
+    resolve: {
+        extensions: [".tsx", ".ts", ".js"]
+    },
 
-	experiments: {
-		topLevelAwait: true
-	},
-}
+    plugins: [
+		new MiniCssExtractPlugin(
+            {filename: "[name]/main.css"}
+        )
+	]
+};
