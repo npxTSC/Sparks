@@ -3,7 +3,6 @@
 		"module": "esnext",
 		"moduleResolution": "node",
 		"target": "es2017",
-		"skipLibCheck": true,
 		"removeComments": true,
 		"noImplicitAny": true,
 		"noImplicitThis": true,
@@ -14,5 +13,5 @@
 		"downlevelIteration": true
 	},
 	
-	"include": ["sparks/**/main.ts"]
+	"include": ["sparks/**/*"]
 }
