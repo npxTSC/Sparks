@@ -1,0 +1,19 @@
+{
+	"compilerOptions": {
+		"module": "esnext",
+		"moduleResolution": "node",
+		"target": "es2017",
+		"removeComments": true,
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"strictNullChecks": true,
+		"sourceMap": false,
+		"esModuleInterop": true,
+		"lib": ["esnext", "DOM"],
+		"downlevelIteration": true
+	},
+
+	"files": [
+		"main.ts"
+	]
+}
