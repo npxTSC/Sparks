@@ -9,8 +9,8 @@ const sparkNames = glob.sync("sparks/*/").map(v => path.basename(v));
 
 const entries = sparkNames.reduce((acc, v) => {
 	const outBase = `${cd}/sparks/${v}/`;
-	acc[`sparks/${v}`]		= outBase + "main.ts";
-	acc[`sparks/sass-${v}`]	= outBase + v + ".scss";
+	acc[`${v}`]			= outBase + "main.ts";
+	acc[`sass-${v}`]	= outBase + v + ".scss";
 	return acc;
 }, {});
 
