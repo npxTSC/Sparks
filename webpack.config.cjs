@@ -3,7 +3,6 @@ const path					= require("path");
 const glob					= require("glob");
 const CleanTerminalPlugin	= require("clean-terminal-webpack-plugin");
 const CopyPlugin			= require("copy-webpack-plugin");
-const ZipPlugin				= require("zip-webpack-plugin");
 const webpack				= require("webpack");
 
 const cd = __dirname;
@@ -19,17 +18,6 @@ const entries = sparkNames.reduce((entries, spark) => {
 
 	return entries;
 }, {});
-
-const zipPlugins = sparkNames.reduce((list, spark) => {
-	list.push(
-		new ZipPlugin({
-			filename: `${spark}.spark.zip`,
-			include: [new RegExp(`dist/${spark}`)],
-		})
-	);
-
-	return list;
-}, []);
 
 module.exports = {
 	mode: "production",
@@ -98,8 +86,6 @@ module.exports = {
 				}
 			]
 		}),
-
-		...zipPlugins,
 	],
 
 	experiments: {
