@@ -3,6 +3,8 @@ const path					= require("path");
 const glob					= require("glob");
 const CleanTerminalPlugin	= require("clean-terminal-webpack-plugin");
 const CopyPlugin			= require("copy-webpack-plugin");
+const ZipPlugin				= require("zip-webpack-plugin");
+const webpack				= require("webpack");
 
 const cd = __dirname;
 
@@ -17,6 +19,17 @@ const entries = sparkNames.reduce((entries, spark) => {
 
 	return entries;
 }, {});
+
+const zipPlugins = sparkNames.reduce((list, spark) => {
+	list.push(
+		new ZipPlugin({
+			filename: `${spark}.spark.zip`,
+			include: [new RegExp(`dist/${spark}`)],
+		})
+	);
+
+	return list;
+}, []);
 
 module.exports = {
 	mode: "production",
@@ -67,16 +80,17 @@ module.exports = {
 
 	plugins: [
 		new CleanTerminalPlugin(),
+		new webpack.ProgressPlugin(),
 		
 		new CopyPlugin({
 			patterns: [
 				{
 					from: path.posix.join(
-						path.resolve(__dirname, "sparks").replace(/\\/g, "/"),
+						path.resolve(cd, "sparks").replace(/\\/g, "/"),
 						"/*/main.ejs"
 					),
 
-					to: path.resolve(__dirname, "dist/[path]/[name].ejs"),
+					to: path.resolve(cd, "dist/[path]/[name].ejs"),
 					context: "sparks/",
 					globOptions: {
 						ignore: ["**/node_modules/**"]
@@ -84,6 +98,8 @@ module.exports = {
 				}
 			]
 		}),
+
+		...zipPlugins,
 	],
 
 	experiments: {
