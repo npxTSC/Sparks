@@ -2,6 +2,7 @@
 const path					= require("path");
 const glob					= require("glob");
 const CleanTerminalPlugin	= require("clean-terminal-webpack-plugin");
+const CopyPlugin			= require("copy-webpack-plugin");
 
 const cd = __dirname;
 
@@ -13,7 +14,7 @@ const entries = sparkNames.reduce((entries, spark) => {
 		outBase + "main.ts",
 		outBase + spark + ".scss",
 	];
-	
+
 	return entries;
 }, {});
 
@@ -66,6 +67,23 @@ module.exports = {
 
 	plugins: [
 		new CleanTerminalPlugin(),
+		
+		new CopyPlugin({
+			patterns: [
+				{
+					from: path.posix.join(
+						path.resolve(__dirname, "sparks").replace(/\\/g, "/"),
+						"/*/main.ejs"
+					),
+
+					to: path.resolve(__dirname, "dist/[path]/[name].ejs"),
+					context: "sparks/",
+					globOptions: {
+						ignore: ["**/node_modules/**"]
+					}
+				}
+			]
+		}),
 	],
 
 	experiments: {
