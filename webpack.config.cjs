@@ -7,11 +7,14 @@ const cd = __dirname;
 
 const sparkNames = glob.sync("sparks/*/").map(v => path.basename(v));
 
-const entries = sparkNames.reduce((acc, v) => {
-	const outBase = `${cd}/sparks/${v}/`;
-	acc[`${v}`]			= outBase + "main.ts";
-	acc[`sass-${v}`]	= outBase + v + ".scss";
-	return acc;
+const entries = sparkNames.reduce((entries, spark) => {
+	const outBase = `${cd}/sparks/${spark}/`;
+	entries[`${spark}`]			= [
+		outBase + "main.ts",
+		outBase + spark + ".scss",
+	];
+	
+	return entries;
 }, {});
 
 module.exports = {
