@@ -1,54 +1,42 @@
-const path = require("path");
-const glob = require("glob");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require('path');
+const glob = require('glob');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const entries = {};
+module.exports = {
+	entry: () => {
+		const entries = {};
+		glob.sync('./sparks/*/main.ts').forEach((file) => {
+			const folder = path.dirname(file);
+			entries[folder] = file;
+		});
+		return entries;
+	},
+	
+	output: {
+		path: path.resolve(__dirname, 'dist'),
+		filename: '[name]/[name].js'
+	},
 
-// Find all the directories under the sparks directory
-const dirs = glob.sync("sparks/*/");
-
-dirs.forEach((dir) => {
-	// Get the directory name from the path
-	const dirName = path.basename(path.dirname(dir));
-	// Define the entry path for the current directory
-	const entryPath = `./${dir}/main.ts`;
-	// Define the output path for the current directory
-	const outputPath = `./dist/${dirName}/`;
-
-	entries[dirName] = {
-		entry: entryPath,
-		output: {
-			filename: "main.js",
-			path: path.resolve(__dirname, outputPath)
-		}
-	};
-});
-
-module.exports = Object.values(entries).map((entry) => ({
-	mode: "production",
-	entry: entry.entry,
-	output: entry.output,
+	resolve: {
+		extensions: ['.ts', '.js']
+	},
 
 	module: {
 		rules: [
 			{
-				test: /\.tsx?$/,
-				use: "ts-loader",
-				exclude: /node_modules/
+				test: /\.ts$/,
+				exclude: /node_modules/,
+				use: 'ts-loader'
 			}, {
 				test: /\.scss$/,
-				use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
+				use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
 			}
 		]
 	},
 
-	resolve: {
-		extensions: [".tsx", ".ts", ".js"]
-	},
-
 	plugins: [
 		new MiniCssExtractPlugin(
-			{filename: "[name]/main.css"}
+			{filename: '[name]/[name].css'}
 		)
 	]
-}));
+};

@@ -3,6 +3,7 @@
 		"module": "esnext",
 		"moduleResolution": "node",
 		"target": "es2017",
+		"skipLibCheck": true,
 		"removeComments": true,
 		"noImplicitAny": true,
 		"noImplicitThis": true,
@@ -12,8 +13,6 @@
 		"lib": ["esnext", "DOM"],
 		"downlevelIteration": true
 	},
-
-	"files": [
-		"main.ts"
-	]
+	
+	"include": ["sparks/**/main.ts"]
 }
