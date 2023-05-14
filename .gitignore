@@ -1,0 +1,9 @@
+*.js
+!_*.js
+*.js.map
+!webpack.config.js
+node_modules
+db/
+dist/
+.env
+data/

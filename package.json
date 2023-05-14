@@ -1,0 +1,33 @@
+{
+  "name": "sparks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "p": "npx webpack",
+    "pw": "npx webpack --watch"
+  },
+  "keywords": [],
+  "author": "dexie",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/bootstrap": "^5.1.13",
+    "@types/node": "^18.16.5",
+    "@types/webmidi": "^2.0.6",
+    "bootstrap": "^5.1.3",
+    "clean-terminal-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^6.7.1",
+    "file-loader": "^6.2.0",
+    "sass": "^1.53.0",
+    "sass-loader": "^13.0.2",
+    "source-map-loader": "^4.0.0",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.3.1",
+    "typescript": "^5.0.4",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0"
+  }
+}
