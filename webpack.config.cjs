@@ -1,22 +1,22 @@
 "use strict";
 const path					= require("path");
+const glob					= require("glob");
 const CleanTerminalPlugin	= require("clean-terminal-webpack-plugin");
-const CopyPlugin			= require("copy-webpack-plugin");
 
 const cd = __dirname;
 
+const sparkNames = glob.sync("sparks/*/").map(v => path.basename(v));
+
+const entries = sparkNames.reduce((acc, v) => {
+	const outBase = `${cd}/sparks/${v}/`;
+	acc[`sparks/${v}`]		= outBase + "main.ts";
+	acc[`sparks/sass-${v}`]	= outBase + v + ".scss";
+	return acc;
+}, {});
+
 module.exports = {
 	mode: "production",
-	entry: {
-		"sparks/sparkwave":			cd + "/sparks/sparkwave/main.ts",
-		"sparks/sass-sparkwave":	cd + "/sparks/sparkwave/sparkwave.scss",
-		
-		"sparks/wordle":			cd + "/sparks/wordle/main.ts",
-		"sparks/sass-wordle":		cd + "/sparks/wordle/wordle.scss",
-		
-		"sparks/sudoku":			cd + "/sparks/sudoku/main.ts",
-		"sparks/sass-sudoku":		cd + "/sparks/sudoku/sudoku.scss",
-	},
+	entry: entries,
 	
 	module: {
 		rules: [
