@@ -247,10 +247,10 @@ YOUR EASIEST WORD: ${easiestWord?.word ?? "None"}
 async function retrieveWords() {
 	// Request data from server
 	return {
-		WORDS_LIST:		await fetch("/public/sparks/wordle/words.txt")
+		WORDS_LIST:		await fetch("words.txt")
 							.then(data => data.text())
 							.then(str => str.toUpperCase().split(/\s+/)),
-		ANSWERS_LIST:	await fetch("/public/sparks/wordle/answers.txt")
+		ANSWERS_LIST:	await fetch("answers.txt")
 							.then(data => data.text())
 							.then(str => str.toUpperCase().split(/\s+/)),
 	}
