@@ -42,7 +42,7 @@ module.exports = {
 						loader: "file-loader",
 						options: {
 						//	outputPath: "",
-							name: "[name]/[name].css",
+							name: "[name]/main.css",
 							context: "sparks/*/",
 						}
 					},
