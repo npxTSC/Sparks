@@ -75,13 +75,17 @@ module.exports = {
 				{
 					from: path.posix.join(
 						path.resolve(cd, "sparks").replace(/\\/g, "/"),
-						"/*/main.ejs"
+						"/*/**"
 					),
 
-					to: path.resolve(cd, "dist/[path]/[name].ejs"),
+					to: path.resolve(cd, "dist/[path]/[name][ext]"),
 					context: "sparks/",
 					globOptions: {
-						ignore: ["**/node_modules/**"]
+						ignore: [
+							"**/node_modules/**",
+							"**.ts",
+							"**.scss",
+						]
 					}
 				}
 			]
