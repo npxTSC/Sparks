@@ -11,7 +11,7 @@ const sparkNames = glob.sync("sparks/*/").map(v => path.basename(v));
 
 const entries = sparkNames.reduce((entries, spark) => {
 	const outBase = `${cd}/sparks/${spark}/`;
-	entries[`${spark}`]			= [
+	entries[spark] = [
 		outBase + "main.ts",
 		outBase + spark + ".scss",
 	];
