@@ -7,3 +7,4 @@ db/
 dist/
 .env
 data/
+*.spark.zip
